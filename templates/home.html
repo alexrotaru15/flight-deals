@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+{% if current_user.is_authenticated %}
+<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+    integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-autocomplete/1.0.7/jquery.auto-complete.min.js"
+    integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+    $(".location").geocomplete({
+        details: ".geo-details",
+        detailsAttribute: "data-geo"
+    });
+</script>
+<div class="row mt-5">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul class=flashes>
+        {% for message in messages %}
+        {{ message }}
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    <div class="col-lg-8 col-md-10">
+        <form action="{{ url_for('home') }}" method="POST">
+            {{ form.csrf_token }}
+            <div class="row">
+                <div class="col-sm-6 row my-3">
+                    <div class="col-sm-3">
+                        {{ form.destination.label(class="form-label") }}
+                    </div>
+                    <div class="col-sm-7">
+                        {{ form.destination(class="form-control location") }}
+                        {% if form.destination.errors %}
+                        {% for error in form.destination.errors %}
+                        <p style="color:red;">{{ error }}</p>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="col-sm-2">
+                        {{ form.submit(class="btn btn-light") }}
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+{% else %}
+<h1>Logheaza-te ba somultoaca excroaca</h1>
+{% endif %}
+{% endblock content %}

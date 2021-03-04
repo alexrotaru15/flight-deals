@@ -1,0 +1,15 @@
+body {
+    font-family: 'Raleway', sans-serif;
+    background: url("https://res.cloudinary.com/duodq6ue9/image/upload/v1614867685/flightdeals/alexey-starki-91ykdj2WQeg-unsplash_svioua.jpg") top center no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.form-label {
+    color: #e4fbff;
+    font-weight: 500;
+}
+
+.flashes {
+    color: #ffab73;
+}
