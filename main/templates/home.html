@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block content %}
+{% if current_user.is_authenticated %}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
+<div class="row mt-5 px-2">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul class=flashes>
+        {% for message in messages %}
+        {{ message }}
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    <div class="col-md-10 col-lg-8">
+        <form action="{{ url_for('home') }}" method="POST">
+            {{ form.csrf_token }}
+            <div class="row">
+                <div class="col-sm-10 col-md-8 row my-3">
+                    <div class="col-sm-3">
+                        {{ form.destination.label(class="form-label") }}
+                    </div>
+                    <div class="col-sm-7">
+                        {{ form.destination(class="form-control", id="autocomplete") }}
+                        {% if form.destination.errors %}
+                        {% for error in form.destination.errors %}
+                        <p style="color:red;">{{ error }}</p>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="col-sm-2">
+                        {{ form.submit(class="btn btn-light") }}
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="px-2">
+    {% if user_cities %}
+    <a href="{{ url_for('get_offer') }}"><button type="submit" class="btn btn-primary my-3 mx-0">Get Offer
+            Now</button></a>
+    <section class="container px-2">
+        <div class="row cities-list">
+            {% for city in user_cities %}
+            <div class="col-md-6 col-lg-4 city-item p-2">
+                <div class="card text-white bg-secondary col-12 p-3">
+                    <h2 class="card-title card-title-custom"><a class="me-2"
+                            href="{{ url_for('delete_city', city_id=city.id) }}"><i class="bi bi-trash"></i></a> {{
+                        city.name }}</h2>
+                    <form class="card-body" action="{{ url_for('update_city', city_id=city.id) }}" method="POST">
+                        <div class="row city-properties">
+                            <div class="row mb-2">
+                                <input class="col-3 form-control price-form" name="price" type="number"
+                                    value="{{ city.max_price }}" id="max-price">
+                                <label class="col" for="max-price">RON</label>
+                            </div>
+                            <div class="row mb-2">
+                                <input class="col-3 form-control price-form" type="number" id="min-days" name="min-days"
+                                    value="{{ city.min_no_days }}">
+                                <label class="col" for="min-days">Minimum number of days</label>
+                            </div>
+                            <div class="row mb-2">
+                                <input class="col-3 form-control price-form" type="number" id="max-days" name="max-days"
+                                    value="{{ city.max_no_days }}">
+                                <label class="col" for="min-days">Maximum number of days</label>
+                            </div>
+                            <button type="submit" class="mt-2 btn btn-light btn-sm">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+</div>
+
+{% else %}
+{% include 'steps.html' %}
+{% endif %}
+<script>
+    $(function () {
+        $.ajax({
+            url: '{{ url_for("autocomplete") }}'
+        }).done(function (data) {
+            $('#autocomplete').autocomplete({
+                source: data,
+                minLength: 2
+            });
+        });
+    });
+</script>
+{% endblock content %}
