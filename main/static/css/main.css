@@ -30,6 +30,11 @@ body .container {
     color: #ffab73;
 }
 
+.card {
+    background-color: transparent;
+    border: none;
+}
+
 .cities-header {
     color: #012404;
 }

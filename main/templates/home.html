@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 <script type="text/javascript" src="https://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
-<div class="row mt-5 px-2">
+<div class="row mt-5 ms-1 px-2">
     {% with messages = get_flashed_messages() %}
     {% if messages %}
     <ul class=flashes>
@@ -38,15 +38,15 @@
         </form>
     </div>
 </div>
-<div class="px-2">
+<div>
     {% if user_cities %}
-    <a href="{{ url_for('get_offer') }}"><button type="submit" class="btn btn-primary my-3 mx-0">Get Offer
+    <a href="{{ url_for('get_offer') }}"><button type="submit" class="btn btn-primary m-3">Get Offer
             Now</button></a>
     <section class="container px-2">
         <div class="row cities-list">
             {% for city in user_cities %}
             <div class="col-md-6 col-lg-4 city-item p-2">
-                <div class="card text-white bg-secondary col-12 p-3">
+                <div class="card text-white col-12 p-3">
                     <h2 class="card-title card-title-custom"><a class="me-2"
                             href="{{ url_for('delete_city', city_id=city.id) }}"><i class="bi bi-trash"></i></a> {{
                         city.name }}</h2>
