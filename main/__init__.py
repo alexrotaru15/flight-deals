@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
-    "DATABASE_URL", "sqlite:///blog.db")
+    "DATABASE_URL", "sqlite:///flightdeals.db")
 db = SQLAlchemy(app)
 
 app.config['MAIL_SERVER'] = os.environ.get('MAIL_SERVER')
