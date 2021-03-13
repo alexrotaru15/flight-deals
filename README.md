@@ -1,4 +1,4 @@
-Flight Deals offer - Developed for friends and family use
+Flight Deals App - Developed for friends and family use
 
 Deployed on heroku: https://flight-deals-rot.herokuapp.com/
 
